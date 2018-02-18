@@ -1,0 +1,24 @@
+Ce que Printf fait c'est prendre une chaine caractere en entree et 
+la transformer en fonction des indicateurs de conversion et des flags
+qu'elle contient.
+
+Pour cela elle utilise une fonction va_arg qui nous permet de parcourir
+le nombre d'argument (encore inconnu) que l'on passe a printf.
+
+Le fonctionnement basique est simple:
+
+-> On parcours la string et affiche tous les caractere si ils sont differents de '%'
+-> Dans le cas on trouve l'indicateur de conversion, on lis les caracteres qui suivent pour segmenter
+    la partie qu'on envera dans la fonction de parsing
+-> La fonction de parsing (si l'input est valide), sauvegarde les flags importants en prenant en compte
+    les priorités et proprietes de flags en question puis stocke le tout dans un binaire.
+-> La fonction de traitement prendra ce binaire et trouvera l'argument en envoyant le type du flag de conversion
+    Elle convertis l'information par la suite et en ressort l'argument traité puis l'affiche
+-> On recommence jusqu'aà la fin de la string
+
+L'ordre dans lequel on reçoit les flags participant a la modifications de l'argument est le suivant
+    -Une valeur optionnelle de largeur minimal de champ (Si ce qui en ressort est inferieur a cette valeur -> completion par des espaces)
+    -Une valeur optionnelle de precision                ()
+    -Un modificateur de longueur lui aussi optionnel.
+
+
